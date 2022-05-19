@@ -1,4 +1,4 @@
-# Talos vSphere Virtual Machine Terraform Module
+# Talos OS vSphere Virtual Machine Terraform Module
 
 This module allows you to deploy a Talos OS-based vSphere virtual machine with a custom configuration. It is a child module of [ilpozzd/terraform-talos-vsphere-cluster](https://github.com/ilpozzd/terraform-talos-vsphere-cluster).
 The configuration of the virtual machine fully corresponds to the configuration of [Talos OS v1.0.x](https://www.talos.dev/v1.0/).
