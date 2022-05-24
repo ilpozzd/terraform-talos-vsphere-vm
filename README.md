@@ -20,7 +20,7 @@ It is strongly not recommended to use this module separately, since creating gro
 | terraform | >= 1.1.9, < 2.0.0 |
 | [hashicorp/vsphere](https://registry.terraform.io/providers/hashicorp/vspherehttps://registry.terraform.io/providers/hashicorp/vsphere) | >= 2.1.1 |
 
-### vSphere Version** >= `6.7u3`
+### vSphere Version >= `6.7u3`
 
 ### Required `Terraform Role` permissions to user in **vSphere**
 
