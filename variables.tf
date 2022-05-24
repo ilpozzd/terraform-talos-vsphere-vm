@@ -49,8 +49,9 @@ variable "memory" {
 variable "disks" {
   description = "A specification list for a virtual disk devices on this virtual machine."
   type = list(object({
-    label = string
-    size  = number
+    label            = string
+    size             = number
+    thin_provisioned = optional(bool)
   }))
 }
 
