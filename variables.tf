@@ -4,17 +4,17 @@ variable "datacenter" {
 }
 
 variable "datastores" {
-  description = "VMWare datastore(s) where all virtual machine`s data will be placed in."
+  description = "VMWare datastore(s) where all data for the virtual machine will be placed in."
   type        = list(string)
 }
 
 variable "hosts" {
-  description = "ESXi host(s) where target virtual machine will be created."
+  description = "ESXi host(s) where the virtual machine will be created."
   type        = list(string)
 }
 
 variable "resource_pool" {
-  description = "VMWare resource pool where target virtual machine will be created."
+  description = "VMWare resource pool where the virtual machine will be created."
   type        = string
 }
 
@@ -24,7 +24,7 @@ variable "folder" {
 }
 
 variable "remote_ovf_url" {
-  description = "URL to the remote Talos OS ovf/ova file."
+  description = "URL to the remote Talos OS 1.0.x ovf/ova file."
   type        = string
 }
 
@@ -35,19 +35,19 @@ variable "vm_count" {
 }
 
 variable "num_cpus" {
-  description = "The total number of virtual processor cores to assign to this virtual machine."
+  description = "The total number of virtual processor cores to assign to the virtual machine."
   type        = number
   default     = 2
 }
 
 variable "memory" {
-  description = "The size of the virtual machine`s RAM, in Mb."
+  description = "The amount of RAM for the virtual machine, in Mb."
   type        = number
   default     = 2048
 }
 
 variable "disks" {
-  description = "A specification list for a virtual disk devices on this virtual machine."
+  description = "A specification list for a virtual disk devices on the virtual machine. Use only first disk to Talos installation in 'machine_base_configuration' block"
   type = list(object({
     label            = string
     size             = number
@@ -57,20 +57,20 @@ variable "disks" {
 }
 
 variable "network_interfaces" {
-  description = "A specification list for a virtual NIC on this virtual machine."
+  description = "A specification list for a virtual NIC on the virtual machine."
   type = list(object({
     name = string
   }))
 }
 
 variable "create_init_node" {
-  description = "Whether to create an initialization node. If so, the first virtual machine will be the initialization node."
+  description = "Whether to create an initialization node. If 'true', the first virtual machine will be the initialization node."
   type        = bool
   default     = false
 }
 
 variable "talos_base_configuration" {
-  description = "Talos high-level configuration. See https://www.talos.dev/v1.0/reference/configuration/#config."
+  description = "Talos OS top-level configuration. See https://www.talos.dev/v1.0/reference/configuration/#config."
   type = object({
     version = string
     persist = bool
@@ -83,7 +83,7 @@ variable "talos_base_configuration" {
 }
 
 variable "machine_secrets" {
-  description = "Secret data used to create Talos stack. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "Secret data that is used to create trust relationships between virtual machines. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type = object({
     token = string
     ca = object({
@@ -103,7 +103,7 @@ variable "talos_admin_pki" {
 }
 
 variable "machine_base_configuration" {
-  description = "Machine configuration used in all nodes. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "Basic configuration of the virtual machine. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type = object({
     install = object({
       disk            = string
@@ -145,15 +145,15 @@ variable "machine_base_configuration" {
 }
 
 variable "machine_extra_configuration" {
-  description = "Optional machine extra configuration. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "Extended configuration of the virtual machine. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type = object({
     controlPlane = optional(object({
-      controllerManager = object({
+      controllerManager = optional(object({
         disabled = bool
-      })
-      scheduler = object({
+      }))
+      scheduler = optional(object({
         disabled = bool
-      })
+      }))
     }))
     pods = optional(list(map(any)))
     disks = optional(list(object({
@@ -232,18 +232,18 @@ variable "machine_extra_configuration" {
 }
 
 variable "machine_type" {
-  description = "Machine's role in the Kubernetes cluster (controlplane or worker). See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "The role of the virtual machine in the Kubernetes cluster (controlplane or worker). See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type        = string
 }
 
 variable "machine_cert_sans" {
-  description = "A list of certSANs for *vm_count* virtual machines (optional). See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "A list of alternative names of for *vm_count* virtual machines. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type        = list(list(string))
   default     = []
 }
 
 variable "machine_network" {
-  description = "Network configuration used in all nodes. See https://www.talos.dev/v1.0/reference/configuration/#networkconfig."
+  description = "General network configuration of the virtual machine. Hostname and interfaces parameters are described in separate inputs. See https://www.talos.dev/v1.0/reference/configuration/#networkconfig."
   type = object({
     nameservers = optional(list(string))
     extraHostEntries = optional(list(object({
@@ -334,7 +334,7 @@ variable "machine_network_interfaces" {
 }
 
 variable "cluster_secrets" {
-  description = "Secret data used in all Kubernetes nodes. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "Secret data that is used to establish trust relationships between Kubernetes cluster nodes. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type = object({
     id     = string
     secret = string
@@ -347,7 +347,7 @@ variable "cluster_secrets" {
 }
 
 variable "control_plane_cluster_secrets" {
-  description = "Secret data used in Kubernetes control plane nodes. Required if machine_type = 'controlplane'. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "Secret data required to establish trust relationships between components used by Control Plane nodes in the Kubernetes cluster. Required if machine_type = 'controlplane'. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type = object({
     aescbcEncryptionSecret = optional(string)
     aggregatorCA = optional(object({
@@ -373,7 +373,7 @@ variable "cluster_name" {
 }
 
 variable "cluster_control_plane" {
-  description = "Provides control plane specific configuration options. Required if (create_init_node = false or (create_init_node = true and vm_count > 1)). See https://www.talos.dev/v1.0/reference/configuration/#controlplaneconfig."
+  description = "Data to define the API endpoint address for joining a node to the Kubernetes cluster. Required if (create_init_node = 'false' or (create_init_node = 'true' and vm_count > '1')). See https://www.talos.dev/v1.0/reference/configuration/#controlplaneconfig."
   type = object({
     endpoint           = optional(string)
     localAPIServerPort = optional(number)
@@ -381,7 +381,7 @@ variable "cluster_control_plane" {
 }
 
 variable "cluster_discovery" {
-  description = "Configures cluster member discovery. See https://www.talos.dev/v1.0/reference/configuration/#clusterdiscoveryconfig."
+  description = "Data that sets up the discovery of nodes in the Kubernetes cluster. See https://www.talos.dev/v1.0/reference/configuration/#clusterdiscoveryconfig."
   type = object({
     enabled = bool
     registries = optional(object({
@@ -400,7 +400,7 @@ variable "cluster_discovery" {
 }
 
 variable "control_plane_cluster_configuration" {
-  description = "Cluster configuration used in Kubernetes control plane nodes. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "Data that configure the components of the Control Plane nodes in the Kubernetes cluster. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type = object({
     network = optional(object({
       cni = optional(object({
@@ -475,7 +475,7 @@ variable "control_plane_cluster_configuration" {
 }
 
 variable "cluster_inline_manifests" {
-  description = "A list of inline Kubernetes manifests. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "A list of Kuberenetes manifests whose content is represented as a string. These will get automatically deployed as part of the bootstrap. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type = list(object({
     name     = string
     contents = string
@@ -484,13 +484,13 @@ variable "cluster_inline_manifests" {
 }
 
 variable "cluster_extra_manifests" {
-  description = "A list of urls that point to additional manifests. These will get automatically deployed as part of the bootstrap. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "A list of URLs that point to additional manifests. These will get automatically deployed as part of the bootstrap. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type        = list(string)
   default     = []
 }
 
 variable "cluster_extra_manifest_headers" {
-  description = "A map of key value pairs that will be added while fetching the extraManifests. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
+  description = "A map of key value pairs that will be added while fetching the 'cluster_extra_manifests'. See https://www.talos.dev/v1.0/reference/configuration/#clusterconfig."
   type        = map(string)
   default     = {}
 }
