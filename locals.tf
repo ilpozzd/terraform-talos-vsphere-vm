@@ -1,14 +1,4 @@
 locals {
-  cluster_etcd_configuration = {
-    etcd = merge(
-      lookup(var.control_plane_cluster_secrets, "etcd", {}),
-      lookup(var.control_plane_cluster_configuration, "etcd", {}),
-    )
-  }
-
-  control_plane_cluster_secrets       = { for k, v in var.control_plane_cluster_secrets : k => v if k != "etcd" }
-  control_plane_cluster_configuration = { for k, v in var.control_plane_cluster_configuration : k => v if k != "etcd" }
-
   machine_full_name = "${var.cluster_name}-${var.machine_type}"
 
   talosconfig = {
