@@ -18,7 +18,7 @@ It is strongly not recommended to use this module separately, since creating gro
 | Name | Version |
 |---|---|
 | terraform | >= 1.1.9, < 2.0.0 |
-| [hashicorp/vsphere](https://registry.terraform.io/providers/hashicorp/vspherehttps://registry.terraform.io/providers/hashicorp/vsphere) | >= 2.1.1 |
+| [hashicorp/vsphere](https://registry.terraform.io/providers/hashicorp/vspherehttps://registry.terraform.io/providers/hashicorp/vsphere/2.1.1) | 2.1.1 |
 
 ### vSphere Version >= `6.7u3`
 
@@ -81,19 +81,19 @@ Virtual machine:
 
 | Name | Version |
 |---|---|
-| [hashicorp/vsphere](https://registry.terraform.io/providers/hashicorp/vspherehttps://registry.terraform.io/providers/hashicorp/vsphere) | >= 2.1.1 |
+| [hashicorp/vsphere](https://registry.terraform.io/providers/hashicorp/vsphere/2.1.1) | 2.1.1 |
 
 ## Modules
 
 | Name | Version |
 |---|---|
-[ilpozzd/vm-userdata/talos](https://registry.terraform.io/modules/ilpozzd/vm-userdata/talos/latest) | 1.0.0 |
+[ilpozzd/vm-userdata/talos](https://registry.terraform.io/modules/ilpozzd/vm-userdata/talos/1.0.0) | 1.0.0 |
 
 ## Resources
 
 | Name | Type |
 |---|---|
-| [vsphere_virtual_machine.this](https://registry.terraform.io/providers/hashicorp/vsphere/latest/docs/resources/virtual_machine) | resource |
+| [vsphere_virtual_machine.this](https://registry.terraform.io/providers/hashicorp/vsphere/2.1.1/docs/resources/virtual_machine) | resource |
 
 ## Inputs
 
@@ -197,8 +197,8 @@ object({
   key = optional(string)
 })
 ```
-* `crt` - Base64 encoded certificate in PEM format
-* `key` - Base64 encoded key in PEM format
+* `crt` - Base64 encoded certificate in **PEM** format
+* `key` - Base64 encoded key in **PEM** format
   
 Required if [machine_type](#machine-type-cell) = `controlplane` and [create_init_node](#create-init-node-cell) = `true`
 
