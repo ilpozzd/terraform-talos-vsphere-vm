@@ -51,6 +51,7 @@ variable "disks" {
   type = list(object({
     label            = string
     size             = number
+    eagerly_scrub    = optional(bool)
     thin_provisioned = optional(bool)
   }))
 }
