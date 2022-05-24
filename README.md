@@ -104,11 +104,11 @@ Virtual machine:
 | hosts | ESXi host(s) where the virtual machine will be created. | `list(string)` | `-` | Yes |
 | resource_pool | VMWare resource pool where the virtual machine will be created. | `string` | `-` | Yes |
 | folder | Folder to create the virtual machine in. | `string` | `-` | Yes |
-| remote_ovf_url | URL to the remote `Talos OS 1.0.x` ovf/ova file. | `string` | `-` | Yes |
+| remote_ovf_url | URL to the remote [Talos OS 1.0.x](https://github.com/siderolabs/talos/releases) ovf/ova file. | `string` | `-` | Yes |
 | <a name="vm-count-cell"></a> vm_count | Number of virtual machines. | `number` | `1` | No |
 | num_cpus | The total number of virtual processor cores to assign to the virtual machine. | `number` | `2` | No |
 | memory | The amount of RAM for the virtual machine, in Mb. | `number` | `2048` | No |
-| disks |A specification list for a virtual disk devices on the virtual machine. Use only first disk to Talos installation in [`machine_base_configuration`](#machine-base-configuration-cell) block | [`list`](#disks-input) | `-` | Yes |
+| disks |A specification list for a virtual disk devices on the virtual machine. Use only first disk to Talos installation in [machine_base_configuration](#machine-base-configuration-cell) block | [`list`](#disks-input) | `-` | Yes |
 | network_interfaces | A specification list for a virtual NIC on the virtual machine. | [`list`](#network-interfaces-input) | `-` | Yes |
 | <a name="create-init-node-cell"></a> create_init_node | Whether to create an initialization node. If `true`, the `first` virtual machine will be the initialization node. | `bool` | `false` | Yes |
 | talos_base_configuration | Talos OS top-level configuration. | [`object`](#talos-base-configuration-input) | [`object`](#talos-base-configuration-input) | No |
