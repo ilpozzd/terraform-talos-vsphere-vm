@@ -13,14 +13,15 @@ terraform {
 }
 
 resource "vsphere_virtual_machine" "this" {
+  count = var.vm_count
+
   datacenter_id    = data.vsphere_datacenter.this.id
   datastore_id     = data.vsphere_ovf_vm_template.this[count.index].datastore_id
   host_system_id   = data.vsphere_ovf_vm_template.this[count.index].host_system_id
   resource_pool_id = data.vsphere_ovf_vm_template.this[count.index].resource_pool_id
   folder           = var.folder
 
-  count = var.vm_count
-  name  = "${local.machine_full_name}-${count.index}"
+  name = length(var.machine_network_hostnames) >= count.index + 1 ? var.machine_network_hostnames[count.index] : "${local.machine_full_name}-${count.index}"
 
   num_cpus = var.num_cpus
   memory   = var.memory
@@ -31,7 +32,7 @@ resource "vsphere_virtual_machine" "this" {
       network_id = network_interface.value
     }
   }
-  
+
   dynamic "disk" {
     for_each = var.disks
     content {
