@@ -37,8 +37,9 @@ resource "vsphere_virtual_machine" "this" {
     content {
       label            = disk.value["label"]
       size             = disk.value["size"]
-      thin_provisioned = false
+      thin_provisioned = defaults(disk.value["thin_provisioned"], false)
       io_share_count   = 1000
+      unit_number      = index(var.disks, disk.value)
     }
   }
 
