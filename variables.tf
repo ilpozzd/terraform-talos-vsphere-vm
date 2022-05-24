@@ -47,7 +47,7 @@ variable "memory" {
 }
 
 variable "disks" {
-  description = "A specification list for a virtual disk devices on the virtual machine. Use only first disk to Talos installation in 'machine_base_configuration' block"
+  description = "A specification list for a virtual disk devices on the virtual machine. Use only first disk to Talos installation in 'machine_base_configuration' block."
   type = list(object({
     label            = string
     size             = number
@@ -237,7 +237,7 @@ variable "machine_type" {
 }
 
 variable "machine_cert_sans" {
-  description = "A list of alternative names of for *vm_count* virtual machines. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
+  description = "A list of alternative names for *vm_count* virtual machines. See https://www.talos.dev/v1.0/reference/configuration/#machineconfig."
   type        = list(list(string))
   default     = []
 }
