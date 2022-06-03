@@ -176,8 +176,8 @@ variable "machine_extra_configuration" {
       https_proxy                 = optional(string)
       no_proxy                    = optional(bool)
     }))
-    sysctl = optional(map(string))
-    sysfs  = optional(map(string))
+    sysctls = optional(map(string))
+    sysfs   = optional(map(string))
     registries = optional(object({
       mirrors = optional(map(object({
         endpoints = list(string)
