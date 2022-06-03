@@ -14,7 +14,7 @@ terraform {
 
 module "userdata" {
   source  = "ilpozzd/vm-userdata/talos"
-  version = "1.0.0"
+  version = "1.0.1"
 
   count = var.vm_count
 
