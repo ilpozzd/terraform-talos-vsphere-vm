@@ -90,4 +90,10 @@ resource "vsphere_virtual_machine" "this" {
       "talos.config" = module.userdata[count.index].configuration
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      disks
+    ]
+  }
 }
