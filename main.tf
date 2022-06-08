@@ -93,7 +93,10 @@ resource "vsphere_virtual_machine" "this" {
 
   lifecycle {
     ignore_changes = [
-      disk
+      disk,
+      datacenter_id,
+      datastore_id,
+      host_system_id
     ]
   }
 }
